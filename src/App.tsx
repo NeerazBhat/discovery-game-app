@@ -1,5 +1,7 @@
+import { Button } from "@chakra-ui/react";
+
 function App() {
-  return <h2>Discovery Game</h2>;
+  return <Button>Hello world</Button>;
 }
 
 export default App;
