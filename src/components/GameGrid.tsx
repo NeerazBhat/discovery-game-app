@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { Text } from "@chakra-ui/react";
+import { Spinner, Text } from "@chakra-ui/react";
 
 interface IGame {
   id: number;
@@ -15,22 +15,33 @@ interface IFetchGameResponse {
 const GameGrid = () => {
   const [games, setGames] = useState<IGame[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     apiClient
       .get<IFetchGameResponse>("/games")
-      .then((res) => setGames(res.data.results))
-      .catch((err) => setError(err.message));
+      .then((res) => {
+        setGames(res.data.results);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>{game.name}</li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <ul>
+          {games.map((game) => (
+            <li key={game.id}>{game.name}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
