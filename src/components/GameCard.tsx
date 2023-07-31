@@ -2,11 +2,13 @@ import {
   Card,
   CardBody,
   CardHeader,
+  HStack,
   Heading,
   Image,
 } from "@chakra-ui/react";
 import { IGame } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
+import CriticScore from "./CriticScore";
 
 interface IGameCard {
   game: IGame;
@@ -26,9 +28,12 @@ const GameCard = ({ game }: IGameCard) => {
           <Heading as={"h4"} size={"md"}>
             {game.name}
           </Heading>
-          <PlatformIconList
-            platforms={game.parent_platforms.map((p) => p.platform)}
-          />
+          <HStack justifyContent="space-between">
+            <PlatformIconList
+              platforms={game.parent_platforms.map((p) => p.platform)}
+            />
+            <CriticScore score={game.metacritic} />
+          </HStack>
         </CardHeader>
       </CardBody>
     </Card>
