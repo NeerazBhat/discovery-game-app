@@ -24,11 +24,12 @@ interface IFetchGameResponse {
 const useGames = () => {
   const [games, setGames] = useState<IGame[]>([]);
   const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
+    setLoading(true);
     apiClient
       .get<IFetchGameResponse>("/games", { signal: controller.signal })
       .then((res) => {
