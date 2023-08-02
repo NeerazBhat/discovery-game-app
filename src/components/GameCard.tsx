@@ -9,6 +9,7 @@ import {
 import { IGame } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
+import getImageCroppedUrl from "../services/img-url";
 
 interface IGameCard {
   game: IGame;
@@ -18,7 +19,7 @@ const GameCard = ({ game }: IGameCard) => {
   return (
     <Card overflow={"hidden"}>
       <Image
-        src={game.background_image}
+        src={getImageCroppedUrl(game.background_image)}
         height={200}
         width={"100%"}
         objectFit={"cover"}
