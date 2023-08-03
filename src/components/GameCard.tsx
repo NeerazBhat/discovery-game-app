@@ -21,7 +21,6 @@ const GameCard = ({ game }: IGameCard) => {
       <Image
         src={getImageCroppedUrl(game.background_image)}
         height={200}
-        width={"100%"}
         objectFit={"cover"}
       />
       <CardBody padding={0}>
