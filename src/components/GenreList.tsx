@@ -1,6 +1,8 @@
 import {
+  Box,
   Button,
   HStack,
+  Heading,
   Image,
   List,
   ListItem,
@@ -19,33 +21,39 @@ const GenreList = ({ selectedGenre, onSelectGenre }: IGenreList) => {
   const skeletonGenrelists = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
-    <List padding={4}>
-      {isLoading &&
-        skeletonGenrelists.map((list) => (
-          <Skeleton height="40px" marginY={2} key={list} borderRadius={4} />
+    <Box p={3}>
+      <Heading fontSize='2xl'>Genres</Heading>
+      <List>
+        {isLoading &&
+          skeletonGenrelists.map((list) => (
+            <Skeleton height="40px" marginY={2} key={list} borderRadius={4} />
+          ))}
+        {data.map((genre) => (
+          <ListItem key={genre.id} marginY={3}>
+            <HStack gap={2}>
+              <Image
+                src={getImageCroppedUrl(genre.image_background)}
+                boxSize="32px"
+                borderRadius={8}
+                objectFit="cover"
+              />
+              <Button
+                onClick={() => onSelectGenre(genre)}
+                variant="link"
+                fontSize="xl"
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                bgColor={genre.id === selectedGenre?.id ? "gray.900" : ""}
+                padding="4px 6px"
+                whiteSpace="normal"
+                textAlign="left"
+              >
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
         ))}
-      {data.map((genre) => (
-        <ListItem key={genre.id} marginY={3}>
-          <HStack>
-            <Image
-              src={getImageCroppedUrl(genre.image_background)}
-              boxSize="32px"
-              borderRadius={8}
-            />
-            <Button
-              onClick={() => onSelectGenre(genre)}
-              variant="link"
-              fontSize="xl"
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-              bgColor={genre.id === selectedGenre?.id ? "gray.900" : ""}
-              padding="4px 6px"
-            >
-              {genre.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+      </List>
+    </Box>
   );
 };
 
