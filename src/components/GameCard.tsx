@@ -25,15 +25,15 @@ const GameCard = ({ game }: IGameCard) => {
       />
       <CardBody padding={0}>
         <CardHeader>
-          <Heading as={"h4"} size={"md"}>
-            {game.name}
-          </Heading>
-          <HStack justifyContent="space-between">
+          <HStack justifyContent="space-between" marginBottom={2}>
             <PlatformIconList
               platforms={game.parent_platforms.map((p) => p.platform)}
             />
             <CriticScore score={game.metacritic} />
           </HStack>
+          <Heading as={"h4"} size={"md"}>
+            {game.name}
+          </Heading>
         </CardHeader>
       </CardBody>
     </Card>
